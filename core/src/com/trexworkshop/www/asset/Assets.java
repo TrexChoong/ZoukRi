@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.trexworkshop.www.ZoukRI;
 
 
 public class Assets {
@@ -150,38 +151,38 @@ public class Assets {
 		}
 		return null;
 	}
-//
-//	public static Drawable getTextDrawable (String text, int size, int color, boolean bold)
-//	{
-//        Pixmap pixmap = getPixmapFromByteArray(KLPoker.getInstance().getDelegate().createFont(text, size, color, bold, -1));
-//        Drawable drawable = textureToDrawable(new Texture(pixmap));
-//        pixmap.dispose();
-//		return drawable;
-//	}
-//
-//	public static Drawable getTextDrawable (String text, int size, int color, boolean bold, String Align)
-//	{
-//        Pixmap pixmap = getPixmapFromByteArray(KLPoker.getInstance().getDelegate().createFont(text, size, color, bold, -1, Align));
-//        Drawable drawable = textureToDrawable(new Texture(pixmap));
-//        pixmap.dispose();
-//		return drawable;
-//	}
-//
-//	public static Drawable getMultiTextDrawable (String text, int size, int color, boolean bold, float height, float width, boolean ellipses)
-//	{
-//		Pixmap pixmap = getPixmapFromByteArray(KLPoker.getInstance().getDelegate().drawMultiLineEllipsizedText( text, size, color, bold, height, width, ellipses));
-//		Drawable drawable = textureToDrawable(new Texture(pixmap));
-//		pixmap.dispose();
-//		return drawable;
-//	}
-//
-//	public static Drawable getMultiTextDrawable (String text, int size, int color, boolean bold, float height, float width, boolean ellipses, String AlignS)
-//	{
-//		Pixmap pixmap = getPixmapFromByteArray(KLPoker.getInstance().getDelegate().drawMultiLineEllipsizedText( text, size, color, bold, height, width, ellipses, AlignS));
-//		Drawable drawable = textureToDrawable(new Texture(pixmap));
-//		pixmap.dispose();
-//		return drawable;
-//	}
+
+	public static Drawable getTextDrawable (String text, int size, int color, boolean bold)
+	{
+        Pixmap pixmap = getPixmapFromByteArray(ZoukRI.getInstance().getDelegate().createFont(text, size, color, bold, -1));
+        Drawable drawable = textureToDrawable(new Texture(pixmap));
+        pixmap.dispose();
+		return drawable;
+	}
+
+	public static Drawable getTextDrawable (String text, int size, int color, boolean bold, String Align)
+	{
+        Pixmap pixmap = getPixmapFromByteArray(ZoukRI.getInstance().getDelegate().createFont(text, size, color, bold, -1, Align));
+        Drawable drawable = textureToDrawable(new Texture(pixmap));
+        pixmap.dispose();
+		return drawable;
+	}
+
+	public static Drawable getMultiTextDrawable (String text, int size, int color, boolean bold, float height, float width, boolean ellipses)
+	{
+		Pixmap pixmap = getPixmapFromByteArray(ZoukRI.getInstance().getDelegate().drawMultiLineEllipsizedText( text, size, color, bold, height, width, ellipses));
+		Drawable drawable = textureToDrawable(new Texture(pixmap));
+		pixmap.dispose();
+		return drawable;
+	}
+
+	public static Drawable getMultiTextDrawable (String text, int size, int color, boolean bold, float height, float width, boolean ellipses, String AlignS)
+	{
+		Pixmap pixmap = getPixmapFromByteArray(ZoukRI.getInstance().getDelegate().drawMultiLineEllipsizedText( text, size, color, bold, height, width, ellipses, AlignS));
+		Drawable drawable = textureToDrawable(new Texture(pixmap));
+		pixmap.dispose();
+		return drawable;
+	}
 
 	public static Drawable textureToDrawable (Texture texture) {
 		return new UnmanagedTextureRegionDrawable(new TextureRegion(texture));
