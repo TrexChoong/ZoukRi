@@ -14,6 +14,8 @@ public abstract class Screen extends ScreenAdapter {
 	private static final float MIN_WORLD_HEIGHT = 1080;
 	private static final float MAX_WORLD_HEIGHT = MIN_WORLD_HEIGHT;
 	protected Screen currentScreen;
+
+	@Getter
 	protected Stage stage;
 	@Getter
 	protected float worldWidth = MAX_WORLD_WIDTH;
