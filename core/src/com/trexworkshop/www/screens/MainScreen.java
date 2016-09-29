@@ -4,11 +4,21 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Json;
 import com.trexworkshop.www.ZoukRI;
 import com.trexworkshop.www.asset.Assets;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.trexworkshop.www.groups.instructorMainGroup;
+import com.trexworkshop.www.models.Courses;
 import com.trexworkshop.www.models.userZouk;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 /**
  * Created by Owner on 4/9/2016.
@@ -51,6 +61,13 @@ public class MainScreen extends Screen {
             instructorOptionLabel.setTouchable(Touchable.disabled);
             addActor(instructorOptionLabel);
         }
+        try{
+            fetchCourses();
+        }
+        catch(Exception ex)
+        {
+            System.out.println(" url exeption! "+ex.getMessage() );
+        }
 
 
 
@@ -63,5 +80,71 @@ public class MainScreen extends Screen {
     protected boolean processBackKey() {
         ZoukRI.getInstance().setScreen(ZoukRI.getInstance().getLoginScreen());
         return false;
+    }
+
+    public void fetchCourses() throws UnsupportedEncodingException {
+        String data = URLEncoder.encode("course", "UTF-8")
+                + "=" + URLEncoder.encode("true", "UTF-8");
+
+        String text = "";
+        BufferedReader reader=null;
+
+        // Send data
+        try
+        {
+
+            // Defined URL  where to send data
+            URL url = new URL("http://www.trexworkshop.com/zouk/zoukCourses.php");
+
+            // Send POST data request
+
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write( data );
+            wr.flush();
+
+            // Get the server response
+
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+
+            // Read Server Response
+            while((line = reader.readLine()) != null)
+            {
+                // Append server response in string
+                sb.append(line + "\n");
+            }
+
+
+            text = sb.toString();
+        }
+        catch(Exception ex)
+        {
+
+        }
+        finally
+        {
+            try
+            {
+
+                reader.close();
+            }
+
+            catch(Exception ex) {}
+        }
+
+        // Show response on activity
+        Json jsonReceived= new Json();
+        System.out.println("result :"+jsonReceived.fromJson(Courses.class,text));
+//        System.out.println("result :"+text);
+
+//        ZoukRI.getInstance().setFullCourses(jsonReceived.fromJson(Courses.class,text));
+//        if(jsonReceived!=null){
+//            ZoukRI.getInstance().getMyUser().setName(user);
+//            ZoukRI.getInstance().setScreen(new MainScreen());
+//        }
+
     }
 }
