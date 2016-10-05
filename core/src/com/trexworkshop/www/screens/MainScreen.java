@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.trexworkshop.www.ZoukRI;
 import com.trexworkshop.www.asset.Assets;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by Owner on 4/9/2016.
@@ -136,9 +139,19 @@ public class MainScreen extends Screen {
         }
 
         // Show response on activity
+        JsonReader testJson = new JsonReader();
+        ArrayList<String> receivedArray = new ArrayList<>();
+        System.out.println("result original : "+ text);
+        for (JsonValue parsed:testJson.parse(text)) {
+            receivedArray.add(parsed.toString());
+        }
+
         Json jsonReceived= new Json();
-        System.out.println("result :"+jsonReceived.fromJson(Courses.class,text));
-//        System.out.println("result :"+text);
+        for(String current : receivedArray ) {
+            System.out.println("result check array :"+ current);
+            System.out.println("result :" + jsonReceived.fromJson(Courses.class,current));
+        }
+        System.out.println("result :"+testJson.parse(text));
 
 //        ZoukRI.getInstance().setFullCourses(jsonReceived.fromJson(Courses.class,text));
 //        if(jsonReceived!=null){
